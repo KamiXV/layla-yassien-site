@@ -1,0 +1,810 @@
+/* ===================================================================
+   Layla Yassien — Portfolio site
+   Colors and fonts below are CSS variables on purpose: swap the
+   font-family values once the real font names are confirmed, and
+   nothing else in this file needs to change.
+=================================================================== */
+/* ======= طبقة النويز والسينمائية (Cinematic Noise Layer) ======= */
+
+:root {
+  --color-black:  #030303;
+  --color-white:  #FAF7F7;
+  --color-red:    #F02000;
+  --color-orange: #FFA008;
+
+  --font-display: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-quote:   'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'Space Mono', 'Courier New', monospace;
+  --font-header:  'Lexend', sans-serif;
+
+  --container: 1400px;
+  --gutter: 6vw;
+  --gutter-cap: max(6vw, calc((100vw - 1400px) / 2)); 
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===================== CUSTOM SCROLLBAR ===================== */
+/* لدعم متصفح فايرفوكس */
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--color-orange) var(--color-black);
+  scrollbar-width: thin;
+}
+
+/* لدعم جوجل كروم و مايكروسوفت إيدج وسفاري */
+::-webkit-scrollbar {
+  width: 10px; /* عرض الشريط */
+}
+::-webkit-scrollbar-track {
+  background: var(--color-black); /* لون الخلفية للشريط (أسود كالموقع) */
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-orange); /* لون المسّاحة البرتقالي! */
+  border-radius: 10px; /* لجعله ناعماً دائري الأطراف */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-red); /* يصبح أحمر عند مرور الماوس عليه لدقة الاحتراف! */
+}
+body {
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { display: block; max-width: 100%; }
+
+/* Client spec: all body paragraphs justified, line-height 1.2 */
+p { text-align: justify; line-height: 1.2; }
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+}
+
+.accent { color: var(--color-red); }
+
+/* Placeholder media blocks — stand in for images/video not yet provided.
+   Swap the element's background (or the <video> source) for the real asset;
+   everything else keeps working as-is. */
+.placeholder-media {
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(3,3,3,.25), transparent 60%),
+    linear-gradient(115deg, var(--color-orange) 0%, var(--color-red) 100%);
+}
+.placeholder-media--grid {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(3,3,3,.15) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(90deg, rgba(3,3,3,.15) 0 1px, transparent 1px 64px),
+    radial-gradient(circle at 30% 40%, rgba(3,3,3,.25), transparent 60%),
+    linear-gradient(115deg, var(--color-orange) 0%, var(--color-red) 100%);
+}
+.placeholder-media--soft { opacity: .9; }
+
+/* ===================== HEADER / NAV ===================== */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px var(--gutter-cap);
+  background: linear-gradient(to bottom, rgba(3,3,3,.55), transparent);
+  transition: background .3s var(--ease);
+}
+.site-header.is-scrolled { background: rgba(3, 3, 3, .92); backdrop-filter: blur(6px); }
+
+.logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: .01em;
+}
+/* لون تحديد النصوص بالماوس (Orange) */
+::selection {
+  background: var(--color-orange);
+  color: var(--color-black);
+}
+::-moz-selection {
+  background: var(--color-orange);
+  color: var(--color-black);
+}
+
+/* النقطة بجانب اسمك للبرتقالي بدلاً من الأحمر */
+.logo-dot { 
+  color: var(--color-orange); 
+  font-size: 1.2em; 
+}
+
+.main-nav { display: flex; gap: 2.4rem; }
+.nav-link { 
+  font-family: var(--font-header);
+  font-size: 1.3rem; 
+  font-weight: 200; 
+  opacity: .85; 
+  transition: opacity .2s; 
+}
+.nav-link:hover, .nav-link.is-active { opacity: 1; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px; height: 32px;
+  background: none; border: none; cursor: pointer;
+}
+.nav-toggle span { display: block; height: 2px; width: 100%; background: var(--color-white); transition: transform .25s var(--ease), opacity .25s; }
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ===================== HERO BANNER ===================== */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* يجعل الفيديو يأخذ كامل ارتفاع الشاشة */
+  height: 100dvh; /* للموبايل، حتى لا تتداخل المتصفحات مع الارتفاع */
+  min-height: 480px;
+  overflow: hidden;
+}
+/* ===================== BOLD STATEMENT ===================== */
+.statement {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6vh var(--gutter-cap);
+  background: var(--color-black);
+}
+.statement__title {
+  max-width: 900px;
+  text-align: right;
+  font-size: clamp(2.2rem, 5.2vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.statement .accent-dot { color: var(--color-red); }
+.statement__title .accent {
+  position: relative;
+  display: inline-block;
+}
+.statement__title .accent::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -0.08em;
+  height: 3px;
+  background: var(--color-red);
+}
+
+/* ===================== QUOTE 1 & NOISE (التطابق 100%) ===================== */
+.quote-block, .noise-block {
+  /* لضمان البداية من نفس الخط العمودي (نفس المسطرة يساراً) */
+  padding: 15vh var(--gutter-cap);
+  background: var(--color-black);
+}
+
+/* ================= النصوص العريضة المضبوطة (Justify) ================= */
+.quote-block__text,
+.noise-block__belief p:first-child {
+  max-width: 650px;       /* عرض ثابت ومحدد للنص ليكون متطابق بلوكين معاً */
+  text-align: justify;    /* أطراف مضبوطة وحادة (كما طلبت تماما) */
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-weight: 300;     
+  font-size: clamp(1rem, 2.3vw, 1.5rem);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ================= اسم ليلى ياسين المائل ================= */
+.quote-block__author,
+.noise-block__author {
+  max-width: 650px;       /* ليقف تماماً عند حد السطر الذي قبله على اليمين */
+  width: 100%;
+  margin-top: 1rem;
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-weight: 300;
+  text-align: right;      /* الجملة مرصوصة يميناً تحت صندوق Justify مباشرة */
+}
+
+
+/* ================= جملة I COLLECT الحرة! ================= */
+.noise-block__title {
+  font-size: clamp(2.2rem, 5.2vw, 4.3rem);
+  font-weight: 800;
+  margin-top: 5vh;
+  margin-bottom: 8vh;
+  
+  /* هنا الحل السحري! ألغينا التمركز الافتراضي (السنتر) وجعلنا المحاذاة بين الكلمتين كما صورتك */
+  text-align: left;
+  
+  /* ======== للتحريك براحتك! ======== */
+  margin-left: 40%;
+  /* بدّل نسبة (20%) إذا بدك العنوان يروح أكثر لليمين خليها (30%)، أو تراجع لليسار خليها (10%) وهكذا! */
+}
+
+.noise-block__somewhere {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+  font-weight: 700;       /* الكلمة الآن (Bold - عريضة) */
+}
+
+.noise-block__belief {
+  margin-left: 0; 
+  margin-top: 15vh;
+}
+/* ===================== DIVIDER BANNER (video) ===================== */
+.divider-banner {
+  position: relative;
+  width: 100%;
+  height: 42vh;
+  min-height: 260px;
+  overflow: hidden;
+}
+.divider-banner__media {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+#eyesVideo { display: block; }
+
+/* ===================== SELECTED PROJECTS ===================== */
+.selected-projects { padding: 40vh var(--gutter-cap); }
+.selected-projects__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 4vh;
+}
+.selected-projects__head h2 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  transform: translateY(10px);
+}
+.view-all {
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  letter-spacing: .12em;
+  color: var(--color-orange);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.project-carousel { overflow: hidden; width: 100%; }
+.project-carousel__track {
+  width: 100%;
+  display: flex;
+  transition: transform .5s var(--ease);
+}
+.carousel-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.4rem;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.project-card { display: block; min-width: 0; }
+.project-card__media {
+  width: 100%;
+  aspect-ratio: 4 / 3.1;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.project-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.project-card:hover .project-card__media img { transform: scale(1.05); }
+.project-card__meta { padding: 1.4rem 0 0; }
+.project-card__tag {
+  display: inline-block;
+  background: var(--color-orange);
+  color: var(--color-black);
+  font-weight: 700;
+  font-size: .78rem;
+  padding: .25rem .7rem;
+  margin-bottom: .8rem;
+}
+.project-card__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.project-card__title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; }
+.project-card__link {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .1em;
+  opacity: .8;
+  white-space: nowrap;
+}
+
+.carousel-dots { display: flex; gap: .6rem; justify-content: center; margin-top: 4vh; }
+.carousel-dots button {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(250, 247, 247, .35);
+  cursor: pointer;
+  transition: background .2s;
+}
+.carousel-dots button.is-active { background: var(--color-white); }
+
+/* ===================== FOOTER ===================== */
+.site-footer {
+  padding: 8vh var(--gutter-cap) 4vh;
+  background: var(--color-black);
+  border-top: 1px solid rgba(250, 247, 247, .12);
+}
+.site-footer__cols {
+  display: flex;
+  gap: 6vw;
+  margin: 3rem 0 4rem;
+}
+.site-footer__col h3 { font-size: .85rem; opacity: .55; margin-bottom: 1rem; font-weight: 600; }
+.site-footer__col a { display: block; margin-bottom: .6rem; font-size: .95rem; opacity: .85; }
+.site-footer__col a:hover { opacity: 1; }
+.site-footer__copy { font-size: .8rem; opacity: .5; }
+
+/* ===================== PREMIUM SCROLL REVEAL (Super Smooth) ===================== */ 
+.reveal {
+  opacity: 0;
+  transform: translateY(100px) scale(0.95); /* نزلناها أكثر وصغرناها أكثر لتبدأ ببطء */
+  /* زدنا وقت الحركة إلى 2 ثانية لتبقى الحركة تتشكل بهدوء حتى لو كان السكرول سريعا */
+  transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1), transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+} 
+.reveal.is-visible { 
+  opacity: 1; 
+  transform: translateY(0) scale(1); 
+}
+/* ===================== RESPONSIVE ===================== */
+/* ===================================================================
+   ABOUT ME PAGE
+=================================================================== */
+.about-banner {
+  width: 100%;
+  height: 46vh;
+  min-height: 280px;
+  overflow: hidden;
+}
+.about-banner__media { width: 100%; height: 100%; object-fit: cover; }
+
+.about-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: stretch;
+  padding: 10vh var(--gutter-cap);
+}
+.about-main__text h1 {
+  font-size: clamp(2.6rem, 6.5vw, 6rem); /* تصغير خفيف ومناسب جداً للشاشات الكبيرة */
+  white-space: nowrap; /* 🔥 السحر هنا: هذا الكود مستحيل يخلي الجملة تنكسر لسطرين مهما صار! */
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 2.2rem;
+}
+.about-main__text p {
+  max-width: 640px;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  opacity: .92;
+  margin-bottom: 1.4rem;
+  /* عدلناه هنا لتُصبح الحواف مستقيمة و مضبوطة بدلاً من كونه متناثر يساراً */
+  text-align: justify; 
+}
+.about-main__text h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: 1.4rem;
+}
+.divider {
+  border: none;
+  border-top: 3px solid rgba(250, 247, 247, 1); /* خط عريض وسماكته عالية ولونه أبيض ناصع */
+  margin: 3rem 0;
+  max-width: 640px;
+}
+.tag-row { display: flex; flex-wrap: wrap; gap: .8rem; }
+.tag-pill {
+  background: var(--color-orange);
+  color: var(--color-black);
+  font-weight: 700;
+  font-size: .92rem;
+  padding: .55rem 1.1rem;
+}
+
+.about-main__media {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  overflow: hidden;
+}
+.about-main__media video { width: 100%; height: 100%; object-fit: cover; }
+
+/* تنسيقات واجهة الاهتمامات والأهداف (تم الضغط والتكبير والجاستیفاي) */
+.about-split { 
+  padding: 8vh var(--gutter-cap) 12vh; 
+}
+.about-split__block {
+  max-width: 400px; /* السر هنا: صغرنا عرض الكتلة لتجبر الأسطر على التضاعف بشكل أطول! */
+}
+.about-split h2 {
+  font-size: clamp(2.8rem, 5vw, 4rem); /* العنوان أصبح أضخم ليلفت الانتباه! */
+  font-weight: 800;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.01em;
+}
+.about-split p {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  opacity: .9;
+  margin-bottom: 1.3rem;
+  text-align: justify; /* أجبرنا الجوانب على الاستقامة بدقة لكل النصوص في البلوكين! */
+}
+.about-split--right { 
+  display: flex; 
+  justify-content: flex-end; 
+}
+.about-split--right .about-split__block {
+  text-align: left; 
+}
+
+/* ===================================================================
+   CONTACT PAGE
+=================================================================== */
+.contact-headline { 
+  padding: 12vh var(--gutter-cap) 4vh; 
+  overflow: hidden; /* لمنع تمدد الصفحة بالـ scroll الأفقي بسبب الخدعة البرتقالية */
+}
+
+/* تكبير العنوان بشكل فخم، وجعله الحروف جميعها Uppercase لكي تظهر LET'S MAKE...  */
+.contact-headline h1 {
+  font-size: clamp(3rem, 5vw, 6.2rem); 
+  font-weight: 900; /* تعريض أكثر قليلا ليكون أمتن */
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.contact-headline em { 
+  font-style: italic; 
+  font-weight: 900; 
+}
+
+/* تنسيق الصندوق الملون TOGETHER */
+.contact-headline .highlight {
+  position: relative;
+  background: var(--color-orange);
+  color: var(--color-black);
+  padding: 0 .25em 0 .3em;
+  font-style: normal;
+  display: inline-block;
+  white-space: nowrap; 
+}
+
+/* كود الشريط الممتد من اليمين للمالا نهاية دون تشويه الهاتف */
+.contact-headline .highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;        /* تبدأ عند نقطة إغلاق كلمة together بالضبط */
+  width: 100vw;      /* تغطي المساحة الفارغة المتبقية من اليمين أيا كان حجم الشاشة */
+  background: var(--color-orange);
+  z-index: -1;
+}
+
+/* 🟢 الجزء الخاص بزيادة المساحة لأسفل وتعديل أحجام الجريد 🟢 */
+.contact-grid { 
+  /* لقد زدنا الـ top padding هنا لتكوين مسافة فارغة كبيرة ومريحة بين الكلمة وبيانات الاتصال */
+  padding: 30vh var(--gutter-cap) 15vh; 
+}
+
+/* إخفاء كلمة "Contact Me" الصغيرة لأن صورتك تُظهر قفزة فورية لبيانات التواصل دون هذه الجملة */
+.contact-grid h2 {
+  display: none;
+}
+
+.contact-grid__items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 3rem;    /* كبّرنا مسافات التباعد لتصبح مريحة وواسعة جدا كـ Figma */
+  column-gap: 12rem;
+  max-width: 900px;
+}
+
+/* أحجام الإيميل والرقم والحبوب (Pills) التي تظهر فيها */
+.contact-item a {
+  display: block;
+  font-size: clamp(1.8rem, 3vw, 2rem); /* قمنا بزيادة ضخامة الإيميل والروابط مثل الفيجما بالضبط */
+  font-weight: 700;
+  margin-top: 1rem;
+  transition: color .2s;
+}
+
+.contact-item a:hover { color: var(--color-orange); }
+/* بدلنا الأندرلاين المزعج بخط متناسق */
+@media (max-width: 860px) {
+  .contact-grid__items { grid-template-columns: 1fr; row-gap: 2.6rem; }
+
+  .about-main { grid-template-columns: 1fr; }
+  .about-main__media { min-height: 320px; order: -1; }
+  .about-split--right { justify-content: flex-start; }
+
+  .main-nav {
+    position: fixed;
+    inset: 0 0 0 30%;
+    background: var(--color-black);
+    flex-direction: column;
+    justify-content: center;
+    gap: 4rem;
+    padding: 2rem;
+    transform: translateX(100%);
+    transition: transform .35s var(--ease);
+  }
+  .main-nav.is-open { transform: translateX(0); }
+  .nav-toggle { display: flex; }
+
+  .statement, .quote-block, .noise-block { justify-content: flex-start; }
+  .statement__title, .quote-block__text, .quote-block__author,
+  .noise-block__title, .noise-block__belief { text-align: left; margin-left: 0; max-width: 100%; }
+
+  .carousel-page { grid-template-columns: 1fr; gap: 3rem; }
+  .site-footer__cols { flex-direction: column; gap: 2.5rem; }
+}
+
+/* ===================================================================
+   INTRO / ENTRY GATE PAGE
+=================================================================== */
+body.intro-page { overflow: hidden; height: 100vh; height: 100dvh; }
+
+.intro {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 12vh;
+  overflow: hidden;
+}
+.intro__bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.intro__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  transition: opacity .4s var(--ease);
+}
+.intro__content.is-hidden { opacity: 0; pointer-events: none; }
+
+.hold-btn {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-black);
+  padding: 1.1rem 2.4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+}
+.hold-btn__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: var(--color-white);
+  z-index: 1;
+}
+.hold-btn__label {
+  position: relative;
+  z-index: 2;
+  display: block;
+  color: var(--color-white);
+  mix-blend-mode: difference;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.intro__hint {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .9rem;
+  opacity: .85;
+}
+.intro__hint-icon { width: 18px; height: 18px; filter: invert(1); }
+
+.intro__signature-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s var(--ease);
+}
+.intro__signature-wrap.is-visible { opacity: 1; pointer-events: auto; }
+.intro__signature { width: min(88vw, 1000px); }
+
+body.intro-page.is-leaving .intro { opacity: 0; transition: opacity .6s var(--ease); }
+
+@media (max-width: 860px) {
+  .intro__signature { width: 88vw; }
+}
+/* ===================== CUSTOM MOUSE CURSOR ===================== */
+* { cursor: none !important; }
+
+.magic-cursor {
+  position: fixed;
+  left: 0; top: 0;
+  width: 22px; height: 22px;
+  background-color: var(--color-white);
+  border-radius: 50%;
+  pointer-events: none; 
+  z-index: 100000;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference; 
+  transition: opacity 0.3s ease; /* فقط انتقال للظهور والاختفاء بدون تكبير الحجم */
+}
+/* ===================================================================
+   PROJECTS / MY WORK PAGE
+=================================================================== */
+.work-head { padding: 8vh var(--gutter-cap) 4vh; }
+.work-head h1 {
+  font-size: clamp(2.4rem, 5.6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 2.4rem;
+}
+.filter-row { display: flex; flex-wrap: wrap; gap: .7rem; }
+.filter-pill {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(250, 247, 247, .35);
+  font-weight: 600;
+  font-size: .85rem;
+  padding: .5rem 1rem;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.filter-pill:hover { border-color: var(--color-orange); }
+.filter-pill.is-active {
+  background: var(--color-orange);
+  color: var(--color-black);
+  border-color: var(--color-orange);
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 2rem;
+  padding: 2vh var(--gutter-cap) 10vh;
+}
+.work-card { min-width: 0; }
+.work-card__media { width: 100%; aspect-ratio: 4/3.1; overflow: hidden; }
+.work-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.work-card:hover .work-card__media img { transform: scale(1.05); }
+.work-card__meta { padding-top: 1.1rem; }
+.work-card__row { display: flex; align-items: baseline; justify-content: space-between; margin-top: .6rem; }
+.work-card__title { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; }
+.work-card__link { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; opacity: .8; white-space: nowrap; }
+
+.process { padding: 6vh var(--gutter-cap) 14vh; max-width: 900px; }
+.process h2 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 800; margin-bottom: 4vh; }
+.process__item { padding: 2.4rem 0; }
+.process__num { font-family: var(--font-mono); color: var(--color-orange); font-size: .9rem; }
+.process__item h3 { font-size: 1.5rem; font-weight: 800; margin: .6rem 0 .8rem; }
+.process__item p { opacity: .85; max-width: 640px; }
+.process .divider { margin: 0; max-width: 100%; }
+
+@media (max-width: 860px) {
+  .work-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 1100px) and (min-width: 861px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ===================================================================
+   INDIVIDUAL PROJECT PAGES (MAGAZINE 100% LAYOUT)
+=================================================================== */
+.project-hero { 
+  padding: 18vh var(--gutter-cap) 3rem; 
+}
+.back-link { 
+  display: inline-block; 
+  margin-bottom: 5vh; 
+  opacity: .5; 
+  font-size: .85rem; 
+  letter-spacing: .02em; 
+  transition: opacity .3s;
+}
+.back-link:hover { opacity: 1; }
+
+.project-hero__wrapper {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem;
+}
+.project-hero__left { display: flex; flex-direction: column; }
+.project-hero__left h1 { 
+  font-size: clamp(3rem, 7.5vw, 6rem); font-weight: 800; line-height: 1; 
+  margin: 0 0 6px 0; letter-spacing: -0.03em;
+}
+.project-category {
+  font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 300; opacity: .85; letter-spacing: 0.08em; margin-left: 2px;
+}
+.project-hero__right {
+  display: flex; flex-direction: column; align-items: flex-end; padding-top: 15px; 
+}
+.project-year {
+  color: var(--color-orange); font-size: 1.25rem; font-weight: 500;
+  letter-spacing: 0.45em; margin-bottom: 12px; margin-right: -0.45em;
+}
+.tag-column { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+.tag-column .tag-pill { font-size: 0.82rem; padding: 0.35rem 0.8rem; font-weight: 800; margin: 0; }
+
+.project-description { 
+  padding: 0 var(--gutter-cap) 12vh;
+  display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 380px); gap: 3rem;
+}
+.project-description p {
+  max-width: none; font-size: clamp(0.95rem, 1.1vw, 1.05rem); 
+  font-weight: 300; line-height: 1.5; text-align: justify; opacity: .85; margin-bottom: 0;
+}
+.desc-left { display: flex; flex-direction: column; gap: 1.6rem; }
+.desc-right { display: flex; flex-direction: column; justify-content: flex-end; }
+
+/* الاحتفاظ بكود الصور والأزرار السفلية القديم حتى لا يخرب */
+.project-gallery { padding: 0 0 8vh; display: flex; flex-direction: column; gap: 0; }
+.project-gallery img, .project-gallery video { width: 100%; height: auto; display: block; }
+.youtube-embed { margin: 0; }
+
+.project-nav {
+  display: flex; justify-content: space-between; padding: 6vh var(--gutter-cap) 12vh;
+  border-top: 1px solid rgba(250, 247, 247, .12);
+}
+.project-nav a { font-weight: 700; font-size: 1.05rem; }
+.project-nav a:hover { color: var(--color-orange); }
+/* وصف قصير = عمود واحد، بدون تقسيم يمين/يسار مصطنع */
+.project-description--single {
+  display: block;
+  max-width: 640px;
+}
+.project-description--single p { margin-bottom: 1.4rem; }
+.project-description--single p:last-child { margin-bottom: 0; }
+/* ===================================================================
+   YOUTUBE EMBED (for fan-edit projects hosted on YouTube)
+=================================================================== */
+.youtube-embed { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
+.youtube-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.intro__skip {
+  position: absolute;
+  top: 28px;
+  right: var(--gutter-cap);
+  z-index: 4;
+  background: none;
+  border: 1px solid rgba(250, 247, 247, .4);
+  color: var(--color-white);
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .5rem 1.1rem;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.intro__skip:hover { border-color: var(--color-orange); background: rgba(250, 247, 247, .08); }

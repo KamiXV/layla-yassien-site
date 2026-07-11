@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFA008'/%3E%3Ccircle cx='40' cy='35' r='20' fill='%23FFC000'/%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layla Yassien</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=Lexend:wght@200;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body class="intro-page">
+<section class="intro">
+  <video class="intro__bg" autoplay muted loop playsinline aria-hidden="true" poster="assets/intro-bg-poster.jpg">
+    <source src="assets/intro-bg.mp4" type="video/mp4">
+  </video>
+
+  <button class="intro__skip" id="skipBtn">Skip</button>
+
+  <div class="intro__content" id="introContent">
+    <button class="hold-btn" id="holdBtn" aria-label="Hold to enter the site">
+      <span class="hold-btn__fill" id="holdFill" aria-hidden="true"></span>
+      <span class="hold-btn__label">Hold Button</span>
+    </button>
+    <p class="intro__hint">(Headphones on) <img src="assets/headphones.png" alt="" class="intro__hint-icon"></p>
+  </div>
+
+  <div class="intro__signature-wrap" id="signatureWrap">
+    <video class="intro__signature" id="signatureVideo" muted playsinline>
+      <source src="assets/signature.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+<script src="js/script.js"></script>
+<script>
+(function () {
+  const HOLD_DURATION = 2800; // ms — confirmed with Crevo
+  const btn = document.getElementById('holdBtn');
+  const fill = document.getElementById('holdFill');
+  const content = document.getElementById('introContent');
+  const sigWrap = document.getElementById('signatureWrap');
+  const sigVideo = document.getElementById('signatureVideo');
+
+  let holdTimer = null;
+  let completed = false;
+  let navigated = false;
+
+  function startHold(e) {
+    if (completed) return;
+    e.preventDefault();
+    fill.style.transition = `width ${HOLD_DURATION}ms linear`;
+    // Force reflow so the transition re-triggers reliably on repeated attempts
+    void fill.offsetWidth;
+    fill.style.width = '100%';
+    holdTimer = setTimeout(completeHold, HOLD_DURATION);
+  }
+
+  function cancelHold() {
+    if (completed) return;
+    clearTimeout(holdTimer);
+    fill.style.transition = 'width .3s ease';
+    fill.style.width = '0%';
+  }
+
+  function completeHold() {
+    completed = true;
+    content.classList.add('is-hidden');
+    sigWrap.classList.add('is-visible');
+    sigVideo.currentTime = 0;
+    sigVideo.playbackRate = 1.75; // sped up per Crevo's feedback — adjust this one number to taste
+    sigVideo.play().catch(() => {});
+    sigVideo.addEventListener('ended', goHome, { once: true });
+    // Safety net in case 'ended' never fires (e.g. autoplay hiccup)
+    setTimeout(goHome, 9000);
+  }
+
+  function goHome() {
+    if (navigated) return;
+    navigated = true;
+    document.body.classList.add('is-leaving');
+    setTimeout(() => { window.location.href = 'home.html'; }, 600);
+  }
+
+  btn.addEventListener('pointerdown', startHold);
+  btn.addEventListener('pointerup', cancelHold);
+  btn.addEventListener('pointerleave', cancelHold);
+  btn.addEventListener('pointercancel', cancelHold);
+
+  document.getElementById('skipBtn').addEventListener('click', () => {
+    completed = true; // stop any in-progress hold from also firing
+    goHome();
+  });
+})();
+</script>
+<audio id="globalMusic" src="assets/audio/site-song.mp3" preload="auto" loop></audio>
+</body>
+</html>

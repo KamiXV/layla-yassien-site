@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFA008'/%3E%3Ccircle cx='40' cy='35' r='20' fill='%23FFC000'/%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layla Yassien — Visual Communication Designer &amp; Art Director</title>
+<meta name="description" content="Layla Yassien is a Visual Communication Designer & Art Director working across concept design, branding, editorial, and video editing.">
+
+<!-- Confirmed by the client: Inter for everything. Space Mono kept only for the
+     tiny "view project" labels — that's my own detail choice, not hers, flagged separately. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=Lexend:wght@200;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<!-- ============ HEADER / NAV ============ -->
+<header class="site-header" id="siteHeader">
+  <a href="home.html" class="logo">Layla Yassien<span class="logo-dot">.</span></a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="home.html" class="nav-link is-active">Home</a>
+    <a href="about.html" class="nav-link">About Me</a>
+    <a href="projects.html" class="nav-link">Projects</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero-banner" aria-hidden="true">
+   <video class="hero-banner__media" autoplay muted loop playsinline poster="assets/eyes-loop-poster.jpg">
+  <source src="assets/eyes-loop.mp4" type="video/mp4">
+</video>
+  </section>
+
+  <!-- ============ BOLD STATEMENT ============ -->
+ <section class="statement reveal">
+    <h1 class="statement__title">
+      A Creative Designer<br>Unafraid To Be <span class="accent">Bold<span class="accent-dot">.</span></span>
+    </h1>
+  </section>
+
+  <!-- ============ QUOTE 1 ============ -->
+  <section class="quote-block reveal">
+    <p class="quote-block__text">
+      Visual Communication Designer &amp; Art Director working across concept design, branding, Editorial, and video editing. Creating bold and meaningful visual experiences through strategy, concept development, and storytelling.
+    </p>
+    <p class="quote-block__author">— Layla Yassien</p>
+  </section>
+
+ <!-- ============ NOISE / BELIEF ============ -->
+  <section class="noise-block reveal">
+    <h2 class="noise-block__title">
+      I Collect The Noise And<br>
+      Direct It &nbsp;<span class="noise-block__somewhere">Somewhere</span>
+    </h2>
+    <div class="noise-block__belief">
+      <p>I believe creativity is the language of the soul. It is a way of bringing our deepest thoughts and feelings into the world.</p>
+      <p class="noise-block__author">— Layla Yassien</p>
+    </div>
+  </section>
+
+  <!-- ============ DIVIDER BANNER (eyes) ============ -->
+  <section class="divider-banner reveal" aria-hidden="true">
+    <video class="divider-banner__media" id="eyesVideo" autoplay muted loop playsinline poster="assets/hero-loop-poster.jpg">
+      <source src="assets/hero-loop.mp4" type="video/mp4">
+    </video>
+    <div class="divider-banner__media placeholder-media placeholder-media--soft" id="eyesPlaceholder"></div>
+  </section>
+
+  <!-- ============ SELECTED PROJECTS ============ -->
+  <section class="selected-projects reveal">
+    <div class="selected-projects__head">
+      <h2>Selected Projects</h2>
+      <a href="projects.html" class="view-all">view all project</a>
+    </div>
+
+    <div class="project-carousel" id="projectCarousel">
+      <div class="project-carousel__track" id="carouselTrack">
+        <!-- JS renders project-page groups here from the projectsData array in script.js -->
+      </div>
+    </div>
+
+    <div class="carousel-dots" id="carouselDots"></div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <a href="home.html" class="logo">Layla Yassien<span class="logo-dot">.</span></a>
+
+  <div class="site-footer__cols">
+    <div class="site-footer__col">
+      <h3>Pages</h3>
+      <a href="home.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+    </div>
+    <div class="site-footer__col">
+      <h3>Contact</h3>
+      <a href="mailto:laylayassien0@gmail.com">laylayassien0@gmail.com</a>
+      <a href="tel:+905550398198">+90 555 039 81 98</a>
+    </div>
+  </div>
+
+  <p class="site-footer__copy">© 2026 Layla Yassien. All rights reserved.</p>
+</footer>
+
+<script src="js/script.js"></script>
+<audio id="globalMusic" src="assets/audio/site-song.mp3" preload="auto" loop></audio>
+</body>
+</html>

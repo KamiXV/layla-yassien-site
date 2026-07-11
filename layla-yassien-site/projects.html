@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFA008'/%3E%3Ccircle cx='40' cy='35' r='20' fill='%23FFC000'/%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Work — Layla Yassien</title>
+<meta name="description" content="Selected design work by Layla Yassien across branding, social media, editorial, conceptual design, posters, and motion.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=Lexend:wght@200;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER / NAV ============ -->
+<header class="site-header" id="siteHeader">
+  <a href="home.html" class="logo">Layla Yassien<span class="logo-dot">.</span></a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About Me</a>
+    <a href="projects.html" class="nav-link is-active">Projects</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+
+  <!-- ============ TOP BANNER ============ -->
+  <section class="about-banner" aria-hidden="true">
+    <video class="about-banner__media" autoplay muted loop playsinline poster="assets/projects-banner-poster.jpg">
+      <source src="assets/projects-banner.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <!-- ============ MY WORK HEADING + FILTERS ============ -->
+  <section class="work-head reveal">
+    <h1>My Work</h1>
+    <div class="filter-row" id="filterRow">
+      <button class="filter-pill is-active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="branding">Branding</button>
+      <button class="filter-pill" data-filter="social-media">Social Media</button>
+      <button class="filter-pill" data-filter="editorial">Editorial</button>
+      <button class="filter-pill" data-filter="conceptual-design">Conceptual Design</button>
+      <button class="filter-pill" data-filter="posters">Posters</button>
+      <button class="filter-pill" data-filter="motion-video">Motion Video</button>
+    </div>
+  </section>
+
+  <!-- ============ WORK GRID ============ -->
+  <section class="work-grid reveal" id="workGrid">
+    <!-- cards injected by JS from the projectsData array below -->
+  </section>
+
+  <!-- ============ WORKING PROCESS ============ -->
+  <section class="process reveal">
+    <h2>Working Process</h2>
+
+    <div class="process__item">
+      <span class="process__num">01</span>
+      <h3>Identity</h3>
+      <p>I start by understanding the project's goals, target audience, competitors, tone of voice, and overall vision to define a clear creative direction.</p>
+    </div>
+    <hr class="divider">
+
+    <div class="process__item">
+      <span class="process__num">02</span>
+      <h3>Brainstorm</h3>
+      <p>I brainstorm different ideas until I find a concept that aligns with the brand identity and creates a meaningful connection with the project.</p>
+    </div>
+    <hr class="divider">
+
+    <div class="process__item">
+      <span class="process__num">03</span>
+      <h3>Research &amp; Medium</h3>
+      <p>I research references, symbolism, and visual inspiration to strengthen the concept. Based on the project's needs, I then choose the most suitable tools, software, and production methods.</p>
+    </div>
+    <hr class="divider">
+
+    <div class="process__item">
+      <span class="process__num">04</span>
+      <h3>Moodboard &amp; Sketches</h3>
+      <p>I create a moodboard to define the visual direction through imagery, typography, color, and layout. Once the direction is clear, I develop rough sketches and initial ideas.</p>
+    </div>
+    <hr class="divider">
+
+    <div class="process__item">
+      <span class="process__num">05</span>
+      <h3>Collecting Elements</h3>
+      <p>I gather all the assets needed for the project, including photography, video, illustrations, or other visual elements that support the art direction.</p>
+    </div>
+    <hr class="divider">
+
+    <div class="process__item">
+      <span class="process__num">06</span>
+      <h3>Design</h3>
+      <p>With a clear direction in place, I begin designing while referring back to the moodboard to ensure the final outcome stays consistent with the original vision.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <a href="home.html" class="logo">Layla Yassien<span class="logo-dot">.</span></a>
+
+  <div class="site-footer__cols">
+    <div class="site-footer__col">
+      <h3>Pages</h3>
+      <a href="home.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+    </div>
+    <div class="site-footer__col">
+      <h3>Contact</h3>
+      <a href="mailto:laylayassien0@gmail.com">laylayassien0@gmail.com</a>
+      <a href="tel:+905550398198">+90 555 039 81 98</a>
+    </div>
+  </div>
+
+  <p class="site-footer__copy">© 2026 Layla Yassien. All rights reserved.</p>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+// Categories below are now confirmed from the client's project files (no more guessing).
+const workData = [
+  { title: "The Base",         tag: "Branding",          filter: "branding",         img: "assets/projects/the-base.jpg",          href: "projects/the-base.html" },
+  { title: "Nard",             tag: "Branding",          filter: "branding",         img: "assets/projects/nard.jpg",              href: "projects/nard.html" },
+  { title: "From The Archive", tag: "Social Media",      filter: "social-media",     img: "assets/projects/from-the-archive.jpg",  href: "projects/from-the-archive.html" },
+  { title: "Black Music",      tag: "Editorial",         filter: "editorial",        img: "assets/projects/black-music.jpg",       href: "projects/black-music.html" },
+  { title: "1.618",            tag: "Conceptual Design", filter: "conceptual-design",img: "assets/projects/1-618.jpg",             href: "projects/1-618.html" },
+  { title: "Anisette",         tag: "Posters",           filter: "posters",          img: "assets/projects/anisette.jpg",          href: "projects/anisette.html" },
+  { title: "Megadeth",         tag: "Posters",           filter: "posters",          img: "assets/projects/megadeth.jpg",          href: "projects/megadeth.html" },
+  { title: "This Is Loki",     tag: "Video Motion",      filter: "motion-video",     img: "assets/projects/this-is-loki.jpg",      href: "projects/this-is-loki.html" },
+  { title: "The Other Side",   tag: "Video Motion",      filter: "motion-video",     img: "assets/projects/the-other-side.jpg",    href: "projects/the-other-side.html" },
+  { title: "Crazy People",     tag: "Video Motion",      filter: "motion-video",     img: "assets/projects/crazy-people.jpg",      href: "projects/crazy-people.html" }
+];
+
+function renderWorkGrid(filter) {
+  const grid = document.getElementById('workGrid');
+  grid.innerHTML = '';
+  workData
+    .filter(p => filter === 'all' || p.filter === filter)
+    .forEach(p => {
+      const card = document.createElement('a');
+      card.className = 'work-card';
+      card.href = p.href;
+      card.innerHTML = `
+        <div class="work-card__media"><img src="${p.img}" alt="${p.title}"></div>
+        <div class="work-card__meta">
+          <span class="tag-pill">${p.tag}</span>
+          <div class="work-card__row">
+            <span class="work-card__title">${p.title}</span>
+            <span class="work-card__link">view project</span>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderWorkGrid('all');
+  document.querySelectorAll('.filter-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      renderWorkGrid(btn.dataset.filter);
+    });
+  });
+});
+</script>
+<audio id="globalMusic" src="assets/audio/site-song.mp3" preload="auto" loop></audio>
+</body>
+</html>

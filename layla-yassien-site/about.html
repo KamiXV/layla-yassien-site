@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23FFA008'/%3E%3Ccircle cx='40' cy='35' r='20' fill='%23FFC000'/%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me — Layla Yassien</title>
+<meta name="description" content="Visual Communication Design graduate from Bilgi University. Learn more about Layla Yassien's background, focus areas, and future goals.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=Lexend:wght@200;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER / NAV ============ -->
+<header class="site-header" id="siteHeader">
+  <a href="home.html" class="logo">Layla Yassien<span class="logo-dot">.</span></a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link is-active">About Me</a>
+    <a href="projects.html" class="nav-link">Projects</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+
+  <!-- ============ TOP BANNER (video 1) ============ -->
+  <section class="about-banner" aria-hidden="true">
+    <video class="about-banner__media" autoplay muted loop playsinline poster="assets/about-top-poster.jpg">
+      <source src="assets/about-top.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <!-- ============ ABOUT MAIN (bio + tags | tall video 2) ============ -->
+  <section class="about-main">
+    <div class="about-main__text reveal">
+      <h1>About Me</h1>
+    <p>
+        My name is Layla Yassien, a <strong><em>Visual Communication</em></strong><br>
+        <strong><em>Design</em></strong> graduate from <strong><em>Bilgi University</em></strong> with a one year<br>
+        minor in Filmmaking.
+      </p>
+      <p>
+        I'm a flexible and curious designer who enjoys<br>
+        learning new skills and exploring different creative<br>
+        fields. <strong><em>I love creativity in all its forms</em></strong> and always look<br>
+        for new ways to turn ideas into meaningful visual<br>
+        experiences.
+      </p>
+      <hr class="divider">
+
+      <h2>Main Focus</h2>
+      <div class="tag-row">
+        <span class="tag-pill">Conceptual Design</span>
+        <span class="tag-pill">Art Direction</span>
+        <span class="tag-pill">Brand Design</span>
+        <span class="tag-pill">Editorial</span>
+        <span class="tag-pill">Print Design</span>
+      </div>
+
+      <hr class="divider">
+
+      <h2>Software</h2>
+      <div class="tag-row">
+        <span class="tag-pill">Adobe Photoshop</span>
+        <span class="tag-pill">Adobe Illustrator</span>
+        <span class="tag-pill">Adobe Premiere Pro</span>
+        <span class="tag-pill">Adobe After Effects</span>
+        <span class="tag-pill">Blender (Beginner)</span>
+        <span class="tag-pill">Figma</span>
+      </div>
+    </div>
+
+    <div class="about-main__media reveal" aria-hidden="true">
+      <video autoplay muted loop playsinline poster="assets/about-side-poster.jpg">
+        <source src="assets/about-side.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- ============ INTERESTS ============ -->
+  <section class="about-split reveal">
+    <div class="about-split__block">
+      <h2>Interests</h2>
+      <p>I'm very interested in working in the future in Installation Art, Experiential Design, Exhibition Design, or Scenography and anything related to creating immersive experiences.</p>
+      <p>I'm also passionate about videography and filmmaking, especially music videos.</p>
+      <p>Another interest of mine is making music. I'm currently learning music theory and playing the electric guitar, with the goal of creating my own music in the future. I enjoy exploring different creative fields whenever I can.</p>
+    </div>
+  </section>
+
+  <!-- ============ FUTURE GOALS ============ -->
+  <section class="about-split about-split--right reveal">
+    <div class="about-split__block">
+      <h2>Future Goals</h2>
+      <p>After gaining more industry experience, I hope to grow from a designer into a Creative Director, leading projects from start to finish, shaping creative concepts, and guiding teams through the design process.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <a href="home.html" class="logo">Layla Yassien<span class="logo-dot">.</span></a>
+
+  <div class="site-footer__cols">
+    <div class="site-footer__col">
+      <h3>Pages</h3>
+      <a href="home.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+    </div>
+    <div class="site-footer__col">
+      <h3>Contact</h3>
+      <a href="mailto:laylayassien0@gmail.com">laylayassien0@gmail.com</a>
+      <a href="tel:+905550398198">+90 555 039 81 98</a>
+    </div>
+  </div>
+
+  <p class="site-footer__copy">© 2026 Layla Yassien. All rights reserved.</p>
+</footer>
+
+<script src="js/script.js"></script>
+<audio id="globalMusic" src="assets/audio/site-song.mp3" preload="auto" loop></audio>
+</body>
+</html>
